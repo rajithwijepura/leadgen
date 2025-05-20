@@ -22,7 +22,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
     const categoryData = leadsData.find((category: any) => 
       Object.keys(category)[0] === activeCategory
     );
-    return categoryData ? categoryData[activeCategory] : [];
+    if (categoryData) {
+      const leads = categoryData[activeCategory];
+      // Sort leads by comment_post_date in descending order
+      return leads.sort((a: any, b: any) => 
+        new Date(b.comment_post_date).getTime() - new Date(a.comment_post_date).getTime()
+      );
+    }
+    return [];
   };
 
   // Filter leads based on search query

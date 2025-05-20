@@ -1,4 +1,4 @@
- // This file contains the structured data from the Instagram leads analysis
+// This file contains the structured data from the Instagram leads analysis
 export const leadsData = [
     {
         "high_leads": [
