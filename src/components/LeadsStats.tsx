@@ -73,7 +73,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
         </div>
       </div>
 
-      <div className="bg-gray-800 rounded-xl border border-gray-700 p-6 md:col-span-3">
+      <div className="bg-black rounded-xl border border-gray-700 p-6 md:col-span-3">
         <h3 className="text-lg font-medium text-gray-200 mb-6">Lead Distribution</h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
