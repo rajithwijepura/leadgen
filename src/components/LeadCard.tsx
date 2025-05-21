@@ -135,7 +135,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
                 </div>
               )}
 
-              <div className="mt-4 grid grid-cols-2 gap-2">
+              <div className="mt-4 flex flex-row w-full gap-2">
                 <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#2E3141] hover:bg-[#37394D] text-white rounded-lg transition-colors">
                   <img src="https://cdn.simpleicons.org/notion/white" alt="Notion" className="w-4 h-4" />
                   Add to Notion
