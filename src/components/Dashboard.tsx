@@ -78,7 +78,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
         <LeadsStats leadCounts={leadCounts} />
       )}
 
-      <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+      <div className="bg-black rounded-xl border border-gray-700 overflow-hidden">
         <div className="border-b border-gray-700">
           <nav className="flex overflow-x-auto">
             {categories.map((category) => {
