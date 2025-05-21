@@ -94,7 +94,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
         <div className="mt-4 ml-16 space-y-4 text-sm">
           {analysis_result && (
             <div className="bg-gray-800 p-4 rounded-xl border border-gray-700">
-              <h4 className="font-medium text-gray-200 mb-2">Lead Analysis</h4>
+              <h4 className="font-medium text-white text-lg mb-2">Lead Analysis</h4>
               
               {analysis_result.reason && (
                 <div className="mb-3">
