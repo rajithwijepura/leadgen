@@ -17,8 +17,8 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <Zap size={24} className="text-purple-400" />
-            <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 font-bold text-xl">
+            <Zap size={24} className="text-[#833ab4]" />
+            <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] font-bold text-xl">
               LeadReel
             </div>
           </div>

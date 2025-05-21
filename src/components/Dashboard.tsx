@@ -54,7 +54,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">
+        <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">
           {currentView === 'dashboard' ? 'Dashboard Overview' : 
            currentView === 'leads' ? 'Lead Management' : 
            currentView === 'comments' ? 'Comment Analysis' : 'Settings'}
