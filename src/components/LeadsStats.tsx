@@ -61,8 +61,8 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
       </div>
 
       <div className="bg-black rounded-xl border border-gray-700 p-6 flex items-center">
-        <div className="rounded-full bg-slate-50 p-3 mr-4">
-          <MessageCircle size={24} className="text-rose-500" />
+        <div className="rounded-full bg-rose-800 p-3 mr-4">
+          <MessageCircle size={24} className="text-rose-200" />
         </div>
         <div>
           <p className="text-sm font-medium text-gray-400">High Potential</p>
