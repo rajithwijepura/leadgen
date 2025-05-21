@@ -91,7 +91,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
               <Tooltip 
                 formatter={(value) => [`${value} leads`, 'Count']}
                 labelFormatter={(label) => label.charAt(0).toUpperCase() + label.slice(1)}
-                contentStyle={{ backgroundColor: 'transparent', border: '1px solid #374151' }}
+                contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151' }}
                 itemStyle={{ color: '#e5e7eb' }}
                 labelStyle={{ color: '#e5e7eb' }}
               />
