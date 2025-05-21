@@ -36,7 +36,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="bg-black rounded-xl border border-gray-700 p-6 flex items-center">
         <div className="rounded-full bg-slate-50 p-3 mr-4">
-          <TrendingUp size={24} className="text-purple-800" />
+          <TrendingUp size={24} className="text-purple-500" />
         </div>
         <div>
           <p className="text-sm font-medium text-gray-400">Conversion Rate</p>
@@ -49,7 +49,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
 
       <div className="bg-black rounded-xl border border-gray-700 p-6 flex items-center">
         <div className="rounded-full bg-slate-50 p-3 mr-4">
-          <Users size={24} className="text-purple-800" />
+          <Users size={24} className="text-green-500" />
         </div>
         <div>
           <p className="text-sm font-medium text-gray-400">Total Leads</p>
