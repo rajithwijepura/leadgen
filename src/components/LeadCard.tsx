@@ -126,8 +126,8 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
                       </li>
                     )}
                     {analysis_result.about_user[0].next_step && (
-                      <li className="flex items-center gap-2">
-                        <span className="font-medium text-white">Recommended action:</span>
+                      <li className="flex items-center text-red-600 gap-2">
+                        <span className="font-bold text-red-600">Recommended action:</span>
                         {analysis_result.about_user[0].next_step}
                       </li>
                     )}
