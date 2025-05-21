@@ -2,7 +2,8 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { 
   ChevronDown, ChevronUp, ExternalLink, 
-  MessageSquare, Heart, Award, User, Mail
+  MessageSquare, Heart, Award, Mail,
+  Instagram
 } from 'lucide-react';
 
 interface LeadCardProps {
@@ -28,17 +29,9 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
     <div className={`p-6 transition-all duration-200 ${isExpanded ? 'bg-gray-700/30' : 'hover:bg-gray-700/20'}`}>
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          {user.profile_pic_url ? (
-            <img
-              src={user.profile_pic_url}
-              alt={user.username || 'User'}
-              className="w-12 h-12 rounded-full object-cover ring-2 ring-gray-700"
-            />
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center ring-2 ring-gray-600">
-              <User size={24} className="text-gray-400" />
-            </div>
-          )}
+          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#feda75] via-[#fa7e1e] via-[#d62976] via-[#962fbf] to-[#4f5bd5] flex items-center justify-center">
+            <Instagram size={24} className="text-white" />
+          </div>
         </div>
         
         <div className="flex-grow">
@@ -171,17 +164,9 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
                 <div key={reply.id} className="bg-gray-800 p-4 rounded-xl border border-gray-700">
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0">
-                      {reply.user.profile_pic_url ? (
-                        <img
-                          src={reply.user.profile_pic_url}
-                          alt={reply.user.username}
-                          className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-700"
-                        />
-                      ) : (
-                        <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">
-                          <User size={16} className="text-gray-400" />
-                        </div>
-                      )}
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#feda75] via-[#fa7e1e] via-[#d62976] via-[#962fbf] to-[#4f5bd5] flex items-center justify-center">
+                        <Instagram size={16} className="text-white" />
+                      </div>
                     </div>
                     <div>
                       <div className="flex items-center">
