@@ -8,9 +8,9 @@ function App() {
   const [currentView, setCurrentView] = useState('dashboard');
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
       <NavBar currentView={currentView} setCurrentView={setCurrentView} />
-      <main className="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-8">
         <Dashboard leadsData={leadsData} currentView={currentView} />
       </main>
     </div>

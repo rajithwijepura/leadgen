@@ -12,19 +12,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
   const [activeCategory, setActiveCategory] = useState('high_leads');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Extract lead categories from data
   const categories = leadsData.map((category: any) => 
     Object.keys(category)[0]
   );
 
-  // Get active leads based on selected category
   const getActiveLeads = () => {
     const categoryData = leadsData.find((category: any) => 
       Object.keys(category)[0] === activeCategory
     );
     if (categoryData) {
       const leads = categoryData[activeCategory];
-      // Sort leads by comment_post_date in descending order
       return leads.sort((a: any, b: any) => 
         new Date(b.comment_post_date).getTime() - new Date(a.comment_post_date).getTime()
       );
@@ -32,7 +29,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
     return [];
   };
 
-  // Filter leads based on search query
   const filterLeads = (leads: any[]) => {
     if (!searchQuery) return leads;
     
@@ -44,8 +40,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
   };
 
   const activeLeads = filterLeads(getActiveLeads());
-
-  // Get total counts for each category
   const getCounts = () => {
     const counts: Record<string, number> = {};
     leadsData.forEach((category: any) => {
@@ -60,7 +54,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">
           {currentView === 'dashboard' ? 'Dashboard Overview' : 
            currentView === 'leads' ? 'Lead Management' : 
            currentView === 'comments' ? 'Comment Analysis' : 'Settings'}
@@ -73,7 +67,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
           <input
             type="text"
             placeholder="Search leads..."
-            className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            className="pl-10 pr-4 py-2 w-full bg-gray-800 border border-gray-700 rounded-lg text-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -84,8 +78,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
         <LeadsStats leadCounts={leadCounts} />
       )}
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="border-b border-gray-200">
+      <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+        <div className="border-b border-gray-700">
           <nav className="flex overflow-x-auto">
             {categories.map((category) => {
               const prettyName = category.replace('_', ' ');
@@ -94,18 +88,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
               return (
                 <button
                   key={category}
-                  className={`px-4 py-3 text-sm font-medium whitespace-nowrap ${
+                  className={`px-6 py-4 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                     activeCategory === category
-                      ? 'border-b-2 border-teal-500 text-teal-600'
-                      : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'border-b-2 border-purple-500 text-purple-400 bg-gray-700/50'
+                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700/30'
                   }`}
                   onClick={() => setActiveCategory(category)}
                 >
                   {prettyName.charAt(0).toUpperCase() + prettyName.slice(1)}
                   <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                     activeCategory === category
-                      ? 'bg-teal-100 text-teal-800'
-                      : 'bg-gray-100 text-gray-600'
+                      ? 'bg-purple-500/20 text-purple-400'
+                      : 'bg-gray-700 text-gray-400'
                   }`}>
                     {count}
                   </span>

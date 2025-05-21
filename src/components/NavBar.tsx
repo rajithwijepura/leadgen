@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart3, Users, Instagram } from 'lucide-react';
+import { BarChart3, Users, Instagram, Zap } from 'lucide-react';
 
 interface NavBarProps {
   currentView: string;
@@ -13,11 +13,14 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
   ];
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-gray-800 border-b border-gray-700">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <div className="text-teal-600 font-bold text-xl">LeadTracker</div>
+          <div className="flex items-center space-x-2">
+            <Zap size={24} className="text-purple-400" />
+            <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 font-bold text-xl">
+              LeadReel
+            </div>
           </div>
           
           <nav className="flex items-center space-x-4">
@@ -25,11 +28,11 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
               <button
                 key={item.id}
                 onClick={() => setCurrentView(item.id)}
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   currentView === item.id
-                    ? 'bg-teal-100 text-teal-700'
-                    : 'text-gray-600 hover:bg-gray-100'
-                } transition-colors duration-200`}
+                    ? 'bg-purple-500/20 text-purple-400'
+                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                }`}
               >
                 <span className="mr-2">{item.icon}</span>
                 {item.label}
@@ -39,7 +42,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
               href="https://instagram.com/p/DIHLRuXNu8l"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-purple-600 hover:bg-purple-100 transition-colors duration-200"
+              className="flex items-center px-4 py-2 rounded-lg text-sm font-medium text-pink-400 hover:bg-pink-500/20 transition-all duration-200"
             >
               <span className="mr-2"><Instagram size={20} /></span>
               View Post
@@ -49,4 +52,4 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
       </div>
     </header>
   );
-};
+}
