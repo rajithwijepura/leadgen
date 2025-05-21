@@ -105,23 +105,23 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
               
               {analysis_result.about_user && analysis_result.about_user.length > 0 && (
                 <div>
-                  <h5 className="text-white font-medium mb-2">User Profile</h5>
+                  <h5 className="text-white font-bold mb-2">User Profile</h5>
                   <ul className="space-y-2 text-white">
                     {analysis_result.about_user[0].location && (
                       <li className="flex items-center gap-2">
-                        <span className="font-medium text-white">Location:</span>
+                        <span className="font-bold text-white">Location:</span>
                         {analysis_result.about_user[0].location}
                       </li>
                     )}
                     {analysis_result.about_user[0].psychology_profile && (
                       <li className="flex items-center gap-2">
-                        <span className="font-medium text-white">Psychology:</span>
+                        <span className="font-bold text-white">Psychology:</span>
                         {analysis_result.about_user[0].psychology_profile}
                       </li>
                     )}
                     {analysis_result.about_user[0].estimated_spend && (
                       <li className="flex items-center gap-2">
-                        <span className="font-medium text-white">Estimated spend:</span>
+                        <span className="font-bold text-white">Estimated spend:</span>
                         {analysis_result.about_user[0].estimated_spend}
                       </li>
                     )}
