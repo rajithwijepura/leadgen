@@ -82,7 +82,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
         <div className="border-b border-gray-700">
           <nav className="flex overflow-x-auto">
             {categories.map((category) => {
-              const prettyName = category.replace('_', ' ');
+              const prettyName = category.replace('_', ' potential ');
               const count = leadCounts[category] || 0;
               
               return (
