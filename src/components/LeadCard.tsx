@@ -29,7 +29,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
     <div className={`p-6 transition-all duration-200 ${isExpanded ? 'bg-gray-700/30' : 'hover:bg-gray-700/20'}`}>
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#feda75] via-[#fa7e1e] via-[#d62976] via-[#962fbf] to-[#4f5bd5] flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#feda75] via-[#d62976] via-[#962fbf] to-[#4f5bd5] flex items-center justify-center">
             <Instagram size={24} className="text-white" />
           </div>
         </div>
