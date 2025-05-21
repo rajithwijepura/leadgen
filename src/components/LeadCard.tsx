@@ -2,7 +2,7 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { 
   ChevronDown, ChevronUp, ExternalLink, 
-  MessageSquare, Heart, Award, User
+  MessageSquare, Heart, Award, User, Mail
 } from 'lucide-react';
 
 interface LeadCardProps {
@@ -141,6 +141,25 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
                   </ul>
                 </div>
               )}
+
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#2E3141] hover:bg-[#37394D] text-white rounded-lg transition-colors">
+                  <img src="https://cdn.simpleicons.org/notion/white" alt="Notion" className="w-4 h-4" />
+                  Add to Notion
+                </button>
+                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#4A154B] hover:bg-[#611F69] text-white rounded-lg transition-colors">
+                  <img src="https://cdn.simpleicons.org/slack/white" alt="Slack" className="w-4 h-4" />
+                  Add to Slack
+                </button>
+                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#FF7A59] hover:bg-[#FF8F73] text-white rounded-lg transition-colors">
+                  <img src="https://cdn.simpleicons.org/hubspot/white" alt="HubSpot" className="w-4 h-4" />
+                  Add to HubSpot
+                </button>
+                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#EA4335] hover:bg-[#FF5145] text-white rounded-lg transition-colors">
+                  <Mail size={16} className="text-white" />
+                  Send via Email
+                </button>
+              </div>
             </div>
           )}
           
