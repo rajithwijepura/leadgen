@@ -99,7 +99,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
               {analysis_result.reason && (
                 <div className="mb-3">
                   <span className="text-white font-medium">Reason: </span>
-                  <span className="text-gray-200">{analysis_result.reason}</span>
+                  <span className="text-gray-500">{analysis_result.reason}</span>
                 </div>
               )}
               
