@@ -35,7 +35,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="bg-black rounded-xl border border-gray-700 p-6 flex items-center">
-        <div className="rounded-full bg-slate-50/50 p-3 mr-4">
+        <div className="rounded-full bg-slate-50 p-3 mr-4">
           <TrendingUp size={24} className="text-purple-400" />
         </div>
         <div>
