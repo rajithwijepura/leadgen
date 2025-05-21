@@ -67,7 +67,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
           <input
             type="text"
             placeholder="Search leads..."
-            className="pl-10 pr-4 py-2 w-full bg-gray-800 border border-gray-700 rounded-lg text-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            className="pl-10 pr-4 py-2 w-full bg-black border border-gray-700 rounded-lg text-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
