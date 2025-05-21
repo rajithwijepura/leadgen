@@ -94,6 +94,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151' }}
                 itemStyle={{ color: '#e5e7eb' }}
                 labelStyle={{ color: '#e5e7eb' }}
+                cursor={{fill: 'transparent'}}
               />
               <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                 {chartData.map((entry, index) => (
