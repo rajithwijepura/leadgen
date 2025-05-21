@@ -98,36 +98,36 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
               
               {analysis_result.reason && (
                 <div className="mb-3">
-                  <span className="text-gray-300 font-medium">Reason: </span>
-                  <span className="text-gray-400">{analysis_result.reason}</span>
+                  <span className="text-white font-medium">Reason: </span>
+                  <span className="text-white">{analysis_result.reason}</span>
                 </div>
               )}
               
               {analysis_result.about_user && analysis_result.about_user.length > 0 && (
                 <div>
-                  <h5 className="text-gray-300 font-medium mb-2">User Profile</h5>
-                  <ul className="space-y-2 text-gray-400">
+                  <h5 className="text-white font-medium mb-2">User Profile</h5>
+                  <ul className="space-y-2 text-white">
                     {analysis_result.about_user[0].location && (
                       <li className="flex items-center gap-2">
-                        <span className="font-medium text-gray-300">Location:</span>
+                        <span className="font-medium text-white">Location:</span>
                         {analysis_result.about_user[0].location}
                       </li>
                     )}
                     {analysis_result.about_user[0].psychology_profile && (
                       <li className="flex items-center gap-2">
-                        <span className="font-medium text-gray-300">Psychology:</span>
+                        <span className="font-medium text-white">Psychology:</span>
                         {analysis_result.about_user[0].psychology_profile}
                       </li>
                     )}
                     {analysis_result.about_user[0].estimated_spend && (
                       <li className="flex items-center gap-2">
-                        <span className="font-medium text-gray-300">Estimated spend:</span>
+                        <span className="font-medium text-white">Estimated spend:</span>
                         {analysis_result.about_user[0].estimated_spend}
                       </li>
                     )}
                     {analysis_result.about_user[0].next_step && (
                       <li className="flex items-center gap-2">
-                        <span className="font-medium text-gray-300">Recommended action:</span>
+                        <span className="font-medium text-white">Recommended action:</span>
                         {analysis_result.about_user[0].next_step}
                       </li>
                     )}
