@@ -48,8 +48,8 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
       </div>
 
       <div className="bg-black rounded-xl border border-gray-700 p-6 flex items-center">
-        <div className="rounded-full bg-slate-50 p-3 mr-4">
-          <Users size={24} className="text-green-500" />
+        <div className="rounded-full bg-green-800 p-3 mr-4">
+          <Users size={24} className="text-green-200" />
         </div>
         <div>
           <p className="text-sm font-medium text-gray-400">Total Leads</p>
