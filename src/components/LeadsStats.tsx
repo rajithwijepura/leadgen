@@ -47,7 +47,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
         </div>
       </div>
 
-      <div className="bg-gray-800 rounded-xl border border-gray-700 p-6 flex items-center">
+      <div className="bg-black rounded-xl border border-gray-700 p-6 flex items-center">
         <div className="rounded-xl bg-pink-500/20 p-3 mr-4">
           <Users size={24} className="text-pink-400" />
         </div>
