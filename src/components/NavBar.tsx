@@ -13,7 +13,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
   ];
 
   return (
-    <header className="bg-gray-800 border-b border-gray-700">
+    <header className="bg-black border-b border-gray-700">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
