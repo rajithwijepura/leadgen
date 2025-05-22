@@ -4,10 +4,9 @@ import { BarChart3, Users, Instagram, Zap } from 'lucide-react';
 interface NavBarProps {
   currentView: string;
   setCurrentView: (view: string) => void;
-  requestId: string | null;
 }
 
-export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView, requestId }) => {
+export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) => {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 size={20} /> },
     { id: 'leads', label: 'Leads', icon: <Users size={20} /> },
@@ -20,7 +19,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView, req
           <div className="flex items-center space-x-2">
             <Zap size={24} className="text-[#833ab4]" />
             <div className="text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] font-bold text-xl">
-              LeadReel {requestId && <span className="text-sm">#{requestId}</span>}
+              LeadReel
             </div>
           </div>
           
@@ -40,7 +39,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView, req
               </button>
             ))}
             <a
-              href={`https://instagram.com/p/DIHLRuXNu8l${requestId ? `?request_id=${requestId}` : ''}`}
+              href="https://instagram.com/p/DIHLRuXNu8l"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center px-4 py-2 rounded-lg text-sm font-medium text-pink-400 hover:bg-pink-500/20 transition-all duration-200"
