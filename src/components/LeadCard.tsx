@@ -131,6 +131,12 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
                         {analysis_result.about_user[0].next_step}
                       </li>
                     )}
+                    {analysis_result.about_user[0].suggested_reply && (
+                      <li className="flex items-center text-red-400 gap-2">
+                        <span className="font-bold text-white">Suggested Reply to the Comment:</span>
+                        {analysis_result.about_user[0].suggested_reply}
+                      </li>
+                    )}
                   </ul>
                 </div>
               )}
