@@ -135,9 +135,9 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
                   <div className="bg-[#1A1B23] rounded-xl p-4 border-l-4 border-red-500">
                     <div className="flex items-center gap-2 mb-2">
                       <Zap size={20} className="text-red-400" />
-                      <h5 className="text-xl font-semibold text-white">Recommended Action</h5>
+                      <h5 className="text-xl font-semibold text-red-400">Recommended Action</h5>
                     </div>
-                    <p className="text-gray-300">{analysis_result.about_user[0].next_step}</p>
+                    <p className="text-red-400">{analysis_result.about_user[0].next_step}</p>
                   </div>
                 )}
 
