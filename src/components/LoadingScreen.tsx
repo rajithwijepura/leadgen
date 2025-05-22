@@ -12,7 +12,7 @@ export const LoadingScreen: React.FC = () => {
       </div>
       
       <h2 className="mt-8 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] animate-pulse">
-        Loading Leads...
+        Loading LeadReel Analysis...
       </h2>
       
       <div className="mt-4 w-48 h-1.5 bg-gray-700 rounded-full overflow-hidden">
