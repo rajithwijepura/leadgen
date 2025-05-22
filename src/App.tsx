@@ -30,6 +30,15 @@ function App() {
 
         const data = await response.json();
         setLeadsData(data);
+        
+        // Store the Instagram post code from the first lead
+        if (data && data.length > 0 && data[0][Object.keys(data[0])[0]].length > 0) {
+          const firstLead = data[0][Object.keys(data[0])[0]][0];
+          if (firstLead.insta_post_code) {
+            localStorage.setItem('instagramPostCode', firstLead.insta_post_code);
+          }
+        }
+        
         setIsLoading(false);
       } catch (err) {
         setError(err.message);
@@ -38,6 +47,11 @@ function App() {
     };
 
     fetchData();
+
+    // Cleanup function to remove the stored Instagram post code
+    return () => {
+      localStorage.removeItem('instagramPostCode');
+    };
   }, []);
 
   if (error) {

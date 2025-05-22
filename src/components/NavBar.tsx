@@ -7,10 +7,20 @@ interface NavBarProps {
 }
 
 export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) => {
+  // Get the insta_post_code from the URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestId = urlParams.get('request_id') || '';
+
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 size={20} /> },
     { id: 'leads', label: 'Leads', icon: <Users size={20} /> },
   ];
+
+  // Get the Instagram post URL from localStorage (set in App.tsx)
+  const instagramPostCode = localStorage.getItem('instagramPostCode');
+  const instagramUrl = instagramPostCode 
+    ? `https://instagram.com/p/${instagramPostCode}`
+    : '#'; // Fallback URL if code is not available yet
 
   return (
     <header className="bg-black border-b border-gray-700">
@@ -38,15 +48,17 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
                 {item.label}
               </button>
             ))}
-            <a
-              href="https://instagram.com/p/DIHLRuXNu8l"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center px-4 py-2 rounded-lg text-sm font-medium text-pink-400 hover:bg-pink-500/20 transition-all duration-200"
-            >
-              <span className="mr-2"><Instagram size={20} /></span>
-              View Post
-            </a>
+            {instagramPostCode && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center px-4 py-2 rounded-lg text-sm font-medium text-pink-400 hover:bg-pink-500/20 transition-all duration-200"
+              >
+                <span className="mr-2"><Instagram size={20} /></span>
+                View Post
+              </a>
+            )}
           </nav>
         </div>
       </div>
