@@ -103,7 +103,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
 
               <div className="space-y-6">
                 {analysis_result.reason && (
-                  <div className="bg-[#1A1B23] rounded-xl p-4 border-l-4 border-white">
+                  <div className="bg-[#1A1B23] rounded-xl p-4 border-l-4 border-purple-500">
                     <div className="flex items-center gap-2 mb-2">
                       <Info size={20} className="text-purple-400" />
                       <h5 className="text-xl font-semibold text-purple-400">Reason</h5>
