@@ -3,7 +3,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { 
   ChevronDown, ChevronUp, ExternalLink, 
   MessageSquare, Heart, Award, Mail,
-  Instagram
+  Instagram, Info, Zap, MessageCircle
 } from 'lucide-react';
 
 interface LeadCardProps {
@@ -93,71 +93,85 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
       {isExpanded && (
         <div className="mt-4 ml-16 space-y-4 text-sm">
           {analysis_result && (
-            <div className="bg-gray-800 p-4 rounded-xl border border-gray-700">
-              <h4 className="font-medium text-white text-lg mb-2">Lead Analysis</h4>
-              
-              {analysis_result.reason && (
-                <div className="mb-3">
-                  <span className="text-purple-300 font-bold">Reason: </span>
-                  <span className="text-purple-300">{analysis_result.reason}</span>
-                </div>
-              )}
-              
-              {analysis_result.about_user && analysis_result.about_user.length > 0 && (
-                <div>
-                  <h5 className="text-white font-bold mb-2">User Profile</h5>
-                  <ul className="space-y-2 text-white">
-                    {analysis_result.about_user[0].location && (
-                      <li className="flex items-center gap-2">
-                        <span className="font-bold text-white">Location:</span>
-                        {analysis_result.about_user[0].location}
-                      </li>
-                    )}
-                    {analysis_result.about_user[0].psychology_profile && (
-                      <li className="flex items-center gap-2">
-                        <span className="font-bold text-white">Psychology:</span>
-                        {analysis_result.about_user[0].psychology_profile}
-                      </li>
-                    )}
-                    {analysis_result.about_user[0].estimated_spend && (
-                      <li className="flex items-center gap-2">
-                        <span className="font-bold text-white">Estimated spend:</span>
-                        {analysis_result.about_user[0].estimated_spend}
-                      </li>
-                    )}
-                    {analysis_result.about_user[0].next_step && (
-                      <li className="flex items-center text-red-400 gap-2">
-                        <span className="font-bold text-red-400">Recommended action:</span>
-                        {analysis_result.about_user[0].next_step}
-                      </li>
-                    )}
-                    {analysis_result.about_user[0].suggested_reply && (
-                      <li className="flex items-center text-red-400 gap-2">
-                        <span className="font-bold text-white">Suggested Reply to the Comment:</span>
-                        {analysis_result.about_user[0].suggested_reply}
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              )}
+            <div className="bg-[#0F1117] p-6 rounded-xl">
+              <div className="flex justify-between items-center mb-6">
+                <h4 className="text-2xl font-bold text-white">Lead Analysis</h4>
+                <span className="bg-purple-900/50 text-purple-300 px-4 py-1 rounded-full text-sm">
+                  {lead_potential} potential
+                </span>
+              </div>
 
-              <div className="mt-4 flex flex-row w-full gap-2">
-                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#2E3141] hover:bg-[#37394D] text-white rounded-lg transition-colors">
-                  <img src="https://cdn.simpleicons.org/notion/white" alt="Notion" className="w-4 h-4" />
-                  Add to Notion
-                </button>
-                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#4A154B] hover:bg-[#611F69] text-white rounded-lg transition-colors">
-                  <img src="https://cdn.simpleicons.org/slack/white" alt="Slack" className="w-4 h-4" />
-                  Add to Slack
-                </button>
-                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#FF7A59] hover:bg-[#FF8F73] text-white rounded-lg transition-colors">
-                  <img src="https://cdn.simpleicons.org/hubspot/white" alt="HubSpot" className="w-4 h-4" />
-                  Add to HubSpot
-                </button>
-                <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#EA4335] hover:bg-[#FF5145] text-white rounded-lg transition-colors">
-                  <Mail size={16} className="text-white" />
-                  Send via Email
-                </button>
+              <div className="space-y-6">
+                {analysis_result.reason && (
+                  <div className="bg-[#1A1B23] rounded-xl p-4 border-l-4 border-purple-500">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Info size={20} className="text-purple-400" />
+                      <h5 className="text-xl font-semibold text-white">Reason</h5>
+                    </div>
+                    <p className="text-gray-300">{analysis_result.reason}</p>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <h5 className="text-lg font-semibold text-white mb-2">Location</h5>
+                    <p className="text-gray-400">
+                      {analysis_result.about_user?.[0]?.location || 'Not guessable from the username'}
+                    </p>
+                  </div>
+                  <div>
+                    <h5 className="text-lg font-semibold text-white mb-2">Psychology</h5>
+                    <p className="text-gray-400">
+                      {analysis_result.about_user?.[0]?.psychology_profile || 'No psychology profile available'}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <h5 className="text-lg font-semibold text-white mb-2">Estimated Spend</h5>
+                  <p className="text-gray-400">
+                    {analysis_result.about_user?.[0]?.estimated_spend || 'No spend estimate available'}
+                  </p>
+                </div>
+
+                {analysis_result.about_user?.[0]?.next_step && (
+                  <div className="bg-[#1A1B23] rounded-xl p-4 border-l-4 border-red-500">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Zap size={20} className="text-red-400" />
+                      <h5 className="text-xl font-semibold text-white">Recommended Action</h5>
+                    </div>
+                    <p className="text-gray-300">{analysis_result.about_user[0].next_step}</p>
+                  </div>
+                )}
+
+                {analysis_result.about_user?.[0]?.suggested_reply && (
+                  <div className="bg-[#1A1B23] rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <MessageCircle size={20} className="text-pink-400" />
+                      <h5 className="text-xl font-semibold text-white">Suggested Reply</h5>
+                    </div>
+                    <p className="text-gray-300">{analysis_result.about_user[0].suggested_reply}</p>
+                  </div>
+                )}
+
+                <div className="mt-4 flex flex-row w-full gap-2">
+                  <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#2E3141] hover:bg-[#37394D] text-white rounded-lg transition-colors">
+                    <img src="https://cdn.simpleicons.org/notion/white" alt="Notion" className="w-4 h-4" />
+                    Add to Notion
+                  </button>
+                  <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#4A154B] hover:bg-[#611F69] text-white rounded-lg transition-colors">
+                    <img src="https://cdn.simpleicons.org/slack/white" alt="Slack" className="w-4 h-4" />
+                    Add to Slack
+                  </button>
+                  <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#FF7A59] hover:bg-[#FF8F73] text-white rounded-lg transition-colors">
+                    <img src="https://cdn.simpleicons.org/hubspot/white" alt="HubSpot" className="w-4 h-4" />
+                    Add to HubSpot
+                  </button>
+                  <button className="flex items-center justify-center gap-2 px-4 py-2 bg-[#EA4335] hover:bg-[#FF5145] text-white rounded-lg transition-colors">
+                    <Mail size={16} className="text-white" />
+                    Send via Email
+                  </button>
+                </div>
               </div>
             </div>
           )}
