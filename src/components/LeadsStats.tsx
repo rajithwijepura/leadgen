@@ -13,9 +13,10 @@ import { TrendingUp, Users, MessageCircle } from 'lucide-react';
 
 interface LeadsStatsProps {
   leadCounts: Record<string, number>;
+  requestId: string | null;
 }
 
-export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
+export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts, requestId }) => {
   const chartData = Object.entries(leadCounts).map(([category, count]) => ({
     name: category.replace('_', ' '),
     count
@@ -55,7 +56,9 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
           <p className="text-sm font-medium text-gray-400">Total Leads</p>
           <div className="flex items-end">
             <h3 className="text-2xl font-bold text-gray-200">{totalLeads}</h3>
-            <p className="ml-2 text-sm text-gray-400">all categories</p>
+            <p className="ml-2 text-sm text-gray-400">
+              {requestId ? `for request #${requestId}` : 'all categories'}
+            </p>
           </div>
         </div>
       </div>
@@ -74,7 +77,9 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
       </div>
 
       <div className="bg-black rounded-xl border border-gray-700 p-6 md:col-span-3">
-        <h3 className="text-lg font-medium text-gray-200 mb-6">Lead Distribution</h3>
+        <h3 className="text-lg font-medium text-gray-200 mb-6">
+          Lead Distribution {requestId && <span className="text-sm text-gray-400">for request #{requestId}</span>}
+        </h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart

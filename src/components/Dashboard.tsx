@@ -6,9 +6,10 @@ import { Search } from 'lucide-react';
 interface DashboardProps {
   leadsData: any;
   currentView: string;
+  requestId: string | null;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView, requestId }) => {
   const [activeCategory, setActiveCategory] = useState('high_leads');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -21,7 +22,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
       Object.keys(category)[0] === activeCategory
     );
     if (categoryData) {
-      const leads = categoryData[activeCategory];
+      let leads = categoryData[activeCategory];
+      
+      // Filter by request_id if present
+      if (requestId) {
+        leads = leads.filter((lead: any) => lead.request_id === requestId);
+      }
+      
       return leads.sort((a: any, b: any) => 
         new Date(b.comment_post_date).getTime() - new Date(a.comment_post_date).getTime()
       );
@@ -44,7 +51,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
     const counts: Record<string, number> = {};
     leadsData.forEach((category: any) => {
       const key = Object.keys(category)[0];
-      counts[key] = category[key].length;
+      let categoryLeads = category[key];
+      
+      // Filter by request_id if present
+      if (requestId) {
+        categoryLeads = categoryLeads.filter((lead: any) => lead.request_id === requestId);
+      }
+      
+      counts[key] = categoryLeads.length;
     });
     return counts;
   };
@@ -58,6 +72,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
           {currentView === 'dashboard' ? 'Dashboard Overview' : 
            currentView === 'leads' ? 'Lead Management' : 
            currentView === 'comments' ? 'Comment Analysis' : 'Settings'}
+          {requestId && <span className="text-white text-lg ml-2">#{requestId}</span>}
         </h1>
         
         <div className="relative w-full md:w-64">
@@ -75,7 +90,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
       </div>
 
       {currentView === 'dashboard' && (
-        <LeadsStats leadCounts={leadCounts} />
+        <LeadsStats leadCounts={leadCounts} requestId={requestId} />
       )}
 
       <div className="bg-black rounded-xl border border-gray-700 overflow-hidden">
