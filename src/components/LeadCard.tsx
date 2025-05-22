@@ -96,9 +96,6 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
             <div className="bg-[#0F1117] p-6 rounded-xl">
               <div className="flex justify-between items-center mb-6">
                 <h4 className="text-2xl font-bold text-white">Lead Analysis</h4>
-                <span className="bg-purple-900/50 text-purple-300 px-4 py-1 rounded-full text-sm">
-                  {lead_potential} potential
-                </span>
               </div>
 
               <div className="space-y-6">
