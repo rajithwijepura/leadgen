@@ -108,7 +108,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isExpanded, onToggle }
                       <Info size={20} className="text-purple-400" />
                       <h5 className="text-xl font-semibold text-purple-400">Reason</h5>
                     </div>
-                    <p className="text-gray-300">{analysis_result.reason}</p>
+                    <p className="text-purple-400">{analysis_result.reason}</p>
                   </div>
                 )}
 
