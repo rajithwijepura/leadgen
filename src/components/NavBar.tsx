@@ -4,9 +4,18 @@ import { BarChart3, Users, Instagram, Zap } from 'lucide-react';
 interface NavBarProps {
   currentView: string;
   setCurrentView: (view: string) => void;
+  isAuthenticated: boolean;
+  currentUser: string | null;
+  onLogout: () => void;
 }
 
-export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) => {
+export const NavBar: React.FC<NavBarProps> = ({
+  currentView,
+  setCurrentView,
+  isAuthenticated,
+  currentUser,
+  onLogout,
+}) => {
   // Get the insta_post_code from the URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   const requestId = urlParams.get('request_id') || '';
@@ -34,7 +43,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
           </div>
           
           <nav className="flex items-center space-x-4">
-            {navItems.map((item) => (
+            {isAuthenticated && navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => setCurrentView(item.id)}
@@ -58,6 +67,40 @@ export const NavBar: React.FC<NavBarProps> = ({ currentView, setCurrentView }) =
                 <span className="mr-2"><Instagram size={20} /></span>
                 View Post
               </a>
+            )}
+            {isAuthenticated ? (
+              <>
+                {currentUser && <span className="text-gray-400 text-sm">Welcome, {currentUser}!</span>}
+                <button
+                  onClick={onLogout}
+                  className="flex items-center px-4 py-2 rounded-lg text-sm font-medium text-red-400 hover:bg-red-500/20 transition-all duration-200"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setCurrentView('login')}
+                  className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    currentView === 'login'
+                      ? 'bg-blue-500/20 text-blue-400'
+                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                  }`}
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => setCurrentView('signup')}
+                  className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    currentView === 'signup'
+                      ? 'bg-green-500/20 text-green-400'
+                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                  }`}
+                >
+                  Sign Up
+                </button>
+              </>
             )}
           </nav>
         </div>
