@@ -1,29 +1,47 @@
 import React, { useState } from 'react';
+import { auth } from '../../firebaseConfig'; // Adjusted path assuming components/Signup.tsx and firebaseConfig.ts are in src/
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 interface SignupProps {
-  onSignup: (username: string, email: string, pass: string) => void;
   setCurrentView: (view: string) => void;
 }
 
-export const Signup: React.FC<SignupProps> = ({ onSignup, setCurrentView }) => {
-  const [username, setUsername] = useState('');
+export const Signup: React.FC<SignupProps> = ({ setCurrentView }) => {
+  const [username, setUsername] = useState(''); // Username remains for now, not used by Firebase auth directly
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // DEV_NOTE: Password Handling
-  // In a real application, passwords should NEVER be stored or transmitted in plain text.
-  // They must be securely hashed (e.g., using bcrypt or Argon2) on the client-side before sending (optional, for an extra layer)
-  // and especially on the server-side before storing in a database.
-  // This implementation uses plain text for demonstration purposes only.
-  const handleSignup = (event: React.FormEvent) => {
+  const handleSignup = async (event: React.FormEvent) => {
     event.preventDefault();
-    onSignup(username, email, password);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('Signup successful, user:', userCredential.user);
+      // Username can be updated using updateProfile(userCredential.user, { displayName: username }) if needed.
+      // App.tsx's onAuthStateChanged will handle redirection.
+    } catch (err: any) {
+      console.error('Signup error:', err);
+      if (err.code === 'auth/email-already-in-use') {
+        setError('This email address is already in use.');
+      } else if (err.code === 'auth/weak-password') {
+        setError('Password is too weak. Please choose a stronger password.');
+      } else {
+        setError(err.message || 'Failed to create an account. Please try again.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center">
       <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-gray-100 mb-6">Sign Up</h2>
+        {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
         <form onSubmit={handleSignup}>
           <div className="mb-4">
             <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
@@ -66,9 +84,10 @@ export const Signup: React.FC<SignupProps> = ({ onSignup, setCurrentView }) => {
           </div>
           <button
             type="submit"
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+            disabled={isLoading}
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50"
           >
-            Sign Up
+            {isLoading ? 'Signing Up...' : 'Sign Up'}
           </button>
         </form>
         <p className="text-center text-gray-400 text-sm mt-6">

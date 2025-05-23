@@ -4,64 +4,71 @@ import { Dashboard } from './components/Dashboard';
 import { LoadingScreen } from './components/LoadingScreen';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
+import { auth } from './firebaseConfig'; // Firebase auth instance
+import { onAuthStateChanged, signOut, User } from 'firebase/auth'; // Firebase auth methods
 import './index.css';
 
 function App() {
   const [currentView, setCurrentView] = useState('login'); // Default to login
   const [leadsData, setLeadsData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // Covers both auth and data loading initially
   const [error, setError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  // Define a simple in-memory store for users for the signup->login flow
-  const [users, setUsers] = useState([
-    { email: "user@example.com", password: "password", username: "testuser" }
-  ]);
+  // Listener for Firebase authentication state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        setIsAuthenticated(true);
+        setCurrentUser(user);
+        if (currentView === 'login' || currentView === 'signup') {
+          setCurrentView('dashboard');
+        }
+      } else {
+        // User is signed out
+        setIsAuthenticated(false);
+        setCurrentUser(null);
+        setLeadsData(null); // Clear user-specific data on logout
+        if (currentView === 'dashboard' || currentView === 'leads') {
+          setCurrentView('login');
+        }
+      }
+      setIsLoading(false); // Auth check is complete, app is no longer in initial loading state
+    });
 
-  const handleLogin = (email: string, pass: string) => {
-    const user = users.find(u => u.email === email && u.password === pass);
-    if (user) {
-      setIsAuthenticated(true);
-      setCurrentUser(user.username);
-      setCurrentView('dashboard');
-    } else {
-      alert('Login failed: Invalid email or password.');
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [currentView]); // currentView added to dependencies to re-evaluate redirection if view changes before auth state resolves
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // onAuthStateChanged will handle the rest (setIsAuthenticated, setCurrentUser, setCurrentView)
+      console.log('User logged out successfully');
+    } catch (err) {
+      console.error('Logout error:', err);
+      // Optionally set an error state here
     }
   };
 
-  const handleSignup = (username: string, email: string, pass: string) => {
-    // Check if user already exists
-    if (users.find(u => u.email === email)) {
-      alert('Signup failed: Email already in use.');
-      return;
-    }
-    const newUser = { username, email, password: pass };
-    setUsers([...users, newUser]); // Add new user to our in-memory store
-    console.log('Signup successful:', newUser);
-    setIsAuthenticated(true);
-    setCurrentUser(username);
-    setCurrentView('dashboard');
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setCurrentUser(null);
-    setCurrentView('login');
-  };
-
+  // Effect for fetching data when authenticated and request_id is present
   useEffect(() => {
     const fetchData = async () => {
-      if (!isAuthenticated) { // Only fetch data if authenticated, or adjust as needed
-        // If your app always needs leadsData, remove this isAuthenticated check.
-        // For now, let's assume leadsData is only for authenticated users.
-        // If not, we might want to set isLoading to false earlier or under different conditions.
-        // setIsLoading(false); // Moved to after authentication check
-        // return; 
-      }
+      // Ensure isLoading is true when we start fetching
+      // setIsLoading(true); // This might cause a flicker if auth loading already set it to false.
+      // Instead, data loading is part of the overall loading state.
+      setError(null); // Clear previous errors
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const requestId = urlParams.get('request_id') || '';
+
+        if (!requestId) {
+          // No request_id, no specific data to fetch for this context
+          // setIsLoading(false); // Handled by onAuthStateChanged now
+          return;
+        }
 
         const response = await fetch('https://ai1ds.app.n8n.cloud/webhook/0af95f83-09a8-4bfc-87e9-bdf07b721074', {
           method: 'POST',
@@ -85,42 +92,34 @@ function App() {
             localStorage.setItem('instagramPostCode', firstLead.insta_post_code);
           }
         }
-        // setIsLoading(false); // Data fetching done
-      } catch (err) {
+      } catch (err: any) {
+        console.error("Fetch data error:", err);
         setError(err.message);
-        // setIsLoading(false); // Error in fetching
       } finally {
-        setIsLoading(false); // Ensure loading is always set to false after attempt
+        // setIsLoading(false); // This setIsLoading is critical. 
+                               // It should be called after initial auth check in onAuthStateChanged.
+                               // If fetchData runs after auth, it might briefly set loading to true then false.
+                               // For now, onAuthStateChanged handles the main isLoading for app readiness.
       }
     };
 
-    // Only fetch data if we have a request_id, otherwise, it might be a non-data-driven view
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('request_id')) {
+    if (isAuthenticated) { // Only fetch if authenticated
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('request_id')) {
         fetchData();
-    } else {
-        setIsLoading(false); // No request_id, no data to fetch, stop loading
+      }
+      // If no request_id, we might not need to fetch or set loading.
+      // This part depends on whether leadsData is essential for all authenticated views.
     }
     
     // Cleanup function to remove the stored Instagram post code
     return () => {
       localStorage.removeItem('instagramPostCode');
     };
-  }, []); // Removed isAuthenticated from dependency array to avoid re-fetching on login/logout if not desired
+  }, [isAuthenticated]); // Depends on isAuthenticated to run after login
 
-  // View redirection logic
-  useEffect(() => {
-    if (!isLoading) {
-      if (!isAuthenticated && currentView !== 'login' && currentView !== 'signup') {
-        setCurrentView('login');
-      } else if (isAuthenticated && (currentView === 'login' || currentView === 'signup')) {
-        setCurrentView('dashboard');
-      }
-    }
-  }, [currentView, isAuthenticated, isLoading]);
-
-
-  if (error) {
+  // Error display remains the same
+  if (error && !leadsData) { // Show full page error only if leadsData isn't there (critical error)
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
@@ -137,22 +136,33 @@ function App() {
         currentView={currentView}
         setCurrentView={setCurrentView}
         isAuthenticated={isAuthenticated}
-        currentUser={currentUser}
+        currentUser={currentUser?.displayName || currentUser?.email} // Display name or email
         onLogout={handleLogout}
       />
       <main className="container mx-auto px-4 py-8">
-        {isLoading ? (
+        {isLoading ? ( // Covers initial auth check loading
           <LoadingScreen />
         ) : !isAuthenticated ? (
           currentView === 'login' ? (
-            <Login onLogin={handleLogin} setCurrentView={setCurrentView} />
+            <Login setCurrentView={setCurrentView} />
           ) : currentView === 'signup' ? (
-            <Signup onSignup={handleSignup} setCurrentView={setCurrentView} />
-          ) : null // Fallback or redirect handled by useEffect
+            <Signup setCurrentView={setCurrentView} />
+          ) : (
+            // Should be redirected by onAuthStateChanged, but as a fallback:
+            <Login setCurrentView={setCurrentView} />
+          )
         ) : currentView === 'dashboard' || currentView === 'leads' ? (
           <Dashboard leadsData={leadsData} currentView={currentView} />
-        ) : null // Fallback or redirect handled by useEffect
+        ) : (
+           // Authenticated but unknown view, default to dashboard
+          <Dashboard leadsData={leadsData} currentView={'dashboard'} />
+        )
         }
+        {error && leadsData && ( /* Show non-critical errors alongside dashboard */
+          <div className="text-center text-red-500 p-4">
+            <p>Error fetching additional data: {error}</p>
+          </div>
+        )}
       </main>
     </div>
   );
