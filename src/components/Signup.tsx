@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../../firebaseConfig'; // Adjusted path assuming components/Signup.tsx and firebaseConfig.ts are in src/
+import { auth } from '../firebaseConfig'; // Corrected path
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 interface SignupProps {

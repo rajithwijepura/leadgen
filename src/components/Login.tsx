@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../../firebaseConfig'; // Adjusted path
+import { auth } from '../firebaseConfig'; // Corrected path
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 interface LoginProps {
