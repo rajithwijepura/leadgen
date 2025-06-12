@@ -16,8 +16,24 @@ interface LeadsStatsProps {
 }
 
 export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
+  // Function to get display name for categories
+  const getCategoryDisplayName = (category: string) => {
+    switch (category) {
+      case 'high_leads':
+        return 'Sales Ready';
+      case 'medium_leads':
+        return 'Warm Leads';
+      case 'low_leads':
+        return 'Cold Leads';
+      case 'no_leads':
+        return 'Uninterested';
+      default:
+        return category.replace('_', ' ').charAt(0).toUpperCase() + category.replace('_', ' ').slice(1);
+    }
+  };
+
   const chartData = Object.entries(leadCounts).map(([category, count]) => ({
-    name: category.replace('_', ' '),
+    name: getCategoryDisplayName(category),
     count
   }));
 
@@ -26,10 +42,10 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
   const highLeadsPercentage = totalLeads > 0 ? Math.round((highLeadsCount / totalLeads) * 100) : 0;
 
   const barColors = {
-    'high leads': '#a855f7',    // Purple
-    'medium leads': '#ec4899',  // Pink
-    'low leads': '#f43f5e',     // Rose
-    'no leads': '#6b7280'       // Gray
+    'Sales Ready': '#a855f7',    // Purple
+    'Warm Leads': '#ec4899',     // Pink
+    'Cold Leads': '#f43f5e',     // Rose
+    'Uninterested': '#6b7280'    // Gray
   };
 
   return (
@@ -42,7 +58,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
           <p className="text-sm font-medium text-gray-400">Conversion Rate</p>
           <div className="flex items-end">
             <h3 className="text-2xl font-bold text-gray-200">{highLeadsPercentage}%</h3>
-            <p className="ml-2 text-sm text-gray-400">high potential</p>
+            <p className="ml-2 text-sm text-gray-400">sales ready</p>
           </div>
         </div>
       </div>
@@ -65,7 +81,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
           <MessageCircle size={24} className="text-rose-200" />
         </div>
         <div>
-          <p className="text-sm font-medium text-gray-400">High Potential</p>
+          <p className="text-sm font-medium text-gray-400">Sales Ready</p>
           <div className="flex items-end">
             <h3 className="text-2xl font-bold text-gray-200">{highLeadsCount}</h3>
             <p className="ml-2 text-sm text-gray-400">to follow up</p>
@@ -84,13 +100,12 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis 
                 dataKey="name" 
-                tickFormatter={(value) => value.charAt(0).toUpperCase() + value.slice(1)}
                 stroke="#9ca3af"
               />
               <YAxis stroke="#9ca3af" />
               <Tooltip 
                 formatter={(value) => [`${value} leads`, 'Count']}
-                labelFormatter={(label) => label.charAt(0).toUpperCase() + label.slice(1)}
+                labelFormatter={(label) => label}
                 contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151' }}
                 itemStyle={{ color: '#e5e7eb' }}
                 labelStyle={{ color: '#e5e7eb' }}

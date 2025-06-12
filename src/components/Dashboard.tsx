@@ -51,6 +51,22 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
 
   const leadCounts = getCounts();
 
+  // Function to get display name for categories
+  const getCategoryDisplayName = (category: string) => {
+    switch (category) {
+      case 'high_leads':
+        return 'Sales Ready';
+      case 'medium_leads':
+        return 'Warm Leads';
+      case 'low_leads':
+        return 'Cold Leads';
+      case 'no_leads':
+        return 'Uninterested';
+      default:
+        return category.replace('_', ' ').charAt(0).toUpperCase() + category.replace('_', ' ').slice(1);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -82,7 +98,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
         <div className="border-b border-gray-700">
           <nav className="flex overflow-x-auto">
             {categories.map((category) => {
-              const prettyName = category.replace('_', ' potential ');
+              const displayName = getCategoryDisplayName(category);
               const count = leadCounts[category] || 0;
               
               return (
@@ -95,7 +111,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
                   }`}
                   onClick={() => setActiveCategory(category)}
                 >
-                  {prettyName.charAt(0).toUpperCase() + prettyName.slice(1)}
+                  {displayName}
                   <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                     activeCategory === category
                       ? 'bg-purple-500/20 text-purple-400'
