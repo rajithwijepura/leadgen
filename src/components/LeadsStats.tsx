@@ -20,13 +20,13 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
   const getCategoryDisplayName = (category: string) => {
     switch (category) {
       case 'high_leads':
-        return 'Sales Ready';
+        return 'Hot Leads';
       case 'medium_leads':
-        return 'Warm Leads';
+        return 'Warm Buzz';
       case 'low_leads':
-        return 'Cold Leads';
+        return 'Noise';
       case 'no_leads':
-        return 'Uninterested';
+        return 'Cold Drift';
       default:
         return category.replace('_', ' ').charAt(0).toUpperCase() + category.replace('_', ' ').slice(1);
     }
@@ -42,10 +42,10 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
   const highLeadsPercentage = totalLeads > 0 ? Math.round((highLeadsCount / totalLeads) * 100) : 0;
 
   const barColors = {
-    'Sales Ready': '#a855f7',    // Purple
-    'Warm Leads': '#ec4899',     // Pink
-    'Cold Leads': '#f43f5e',     // Rose
-    'Uninterested': '#6b7280'    // Gray
+    'Hot Leads': '#a855f7',      // Purple
+    'Warm Buzz': '#ec4899',      // Pink
+    'Noise': '#f43f5e',          // Rose
+    'Cold Drift': '#6b7280'      // Gray
   };
 
   return (
@@ -58,7 +58,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
           <p className="text-sm font-medium text-gray-400">Conversion Rate</p>
           <div className="flex items-end">
             <h3 className="text-2xl font-bold text-gray-200">{highLeadsPercentage}%</h3>
-            <p className="ml-2 text-sm text-gray-400">sales ready</p>
+            <p className="ml-2 text-sm text-gray-400">hot leads</p>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
           <MessageCircle size={24} className="text-rose-200" />
         </div>
         <div>
-          <p className="text-sm font-medium text-gray-400">Sales Ready</p>
+          <p className="text-sm font-medium text-gray-400">Hot Leads</p>
           <div className="flex items-end">
             <h3 className="text-2xl font-bold text-gray-200">{highLeadsCount}</h3>
             <p className="ml-2 text-sm text-gray-400">to follow up</p>

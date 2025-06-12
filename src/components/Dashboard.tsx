@@ -55,13 +55,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ leadsData, currentView }) 
   const getCategoryDisplayName = (category: string) => {
     switch (category) {
       case 'high_leads':
-        return 'Sales Ready';
+        return 'Hot Leads';
       case 'medium_leads':
-        return 'Warm Leads';
+        return 'Warm Buzz';
       case 'low_leads':
-        return 'Cold Leads';
+        return 'Noise';
       case 'no_leads':
-        return 'Uninterested';
+        return 'Cold Drift';
       default:
         return category.replace('_', ' ').charAt(0).toUpperCase() + category.replace('_', ' ').slice(1);
     }
