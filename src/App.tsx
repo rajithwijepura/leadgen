@@ -16,7 +16,7 @@ function App() {
         const urlParams = new URLSearchParams(window.location.search);
         const requestId = urlParams.get('request_id') || '';
 
-        const response = await fetch('https://ai1ds.app.n8n.cloud/webhook/0af95f83-09a8-4bfc-87e9-bdf07b721074', {
+        const response = await fetch('https://n8n.bww.one/webhook/0af95f83-09a8-4bfc-87e9-bdf07b721074', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
