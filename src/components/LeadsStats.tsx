@@ -58,7 +58,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
           <p className="text-sm font-medium text-gray-400">Conversion Rate</p>
           <div className="flex items-end">
             <h3 className="text-2xl font-bold text-gray-200">{highLeadsPercentage}%</h3>
-            <p className="ml-2 text-sm text-gray-400">hot leads</p>
+            <p className="ml-2 text-sm text-gray-400">HOT LEADS</p>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
           <p className="text-sm font-medium text-gray-400">Total Leads</p>
           <div className="flex items-end">
             <h3 className="text-2xl font-bold text-gray-200">{totalLeads}</h3>
-            <p className="ml-2 text-sm text-gray-400">all categories</p>
+            <p className="ml-2 text-sm text-gray-400">ALL CATEGORIES</p>
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@ export const LeadsStats: React.FC<LeadsStatsProps> = ({ leadCounts }) => {
           <p className="text-sm font-medium text-gray-400">Hot Leads</p>
           <div className="flex items-end">
             <h3 className="text-2xl font-bold text-gray-200">{highLeadsCount}</h3>
-            <p className="ml-2 text-sm text-gray-400">to follow up</p>
+            <p className="ml-2 text-sm text-gray-400">TO FOLLOW UP</p>
           </div>
         </div>
       </div>
